@@ -1,0 +1,18 @@
+@use '../../styles/tokens' as *;
+
+.news-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+
+  .pagination {
+    --bs-pagination-color: #{$ink};
+    --bs-pagination-hover-color: #{$cherry};
+    --bs-pagination-active-bg: #{$ink};
+    --bs-pagination-active-border-color: #{$ink};
+    --bs-pagination-padding-x: 1rem;
+    --bs-pagination-padding-y: 0.55rem;
+    font-family: $font-display;
+    font-size: 0.9rem;
+  }
+}

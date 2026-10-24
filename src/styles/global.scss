@@ -1,0 +1,110 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+@use 'jquery-ui-theme';
+
+html {
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  font-family: $font-text;
+  color: $ink;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: $ink;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+:focus-visible {
+  @include focus-ring;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Посилання «Перейти до вмісту» для клавіатури та скрінрідерів
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 2000;
+  padding: 0.6rem 1rem;
+  background: $ink;
+  color: $white;
+  font-family: $font-display;
+  font-size: $step--1;
+
+  &:focus {
+    top: 1rem;
+    color: $white;
+  }
+}
+
+.site-main {
+  min-height: 60vh;
+}
+
+// Секції сторінок
+.section {
+  padding-block: $space-section;
+
+  &--mist {
+    background: $mist;
+  }
+
+  &__title {
+    @include display($step-3);
+    margin-bottom: 1.5rem;
+  }
+
+  &__lead {
+    max-width: $measure;
+    font-size: $step-1;
+    line-height: 1.55;
+    color: $ink-soft;
+  }
+}
+
+.prose {
+  max-width: $measure;
+
+  p {
+    margin-bottom: 1.1em;
+  }
+}
+
+.btn {
+  letter-spacing: 0.01em;
+}
+
+.btn-outline-ink {
+  --bs-btn-color: #{$ink};
+  --bs-btn-border-color: #{$ink};
+  --bs-btn-hover-color: #{$white};
+  --bs-btn-hover-bg: #{$ink};
+  --bs-btn-hover-border-color: #{$ink};
+  --bs-btn-active-color: #{$white};
+  --bs-btn-active-bg: #{$ink};
+  --bs-btn-active-border-color: #{$ink};
+}

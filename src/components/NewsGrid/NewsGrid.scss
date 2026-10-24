@@ -1,0 +1,30 @@
+@use '../../styles/mixins' as *;
+
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem 2rem;
+
+  @include media-up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include media-up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include media-up(xl) {
+    gap: 3rem 2.5rem;
+  }
+
+  // Перша (головна) новина займає дві колонки і два рядки
+  &--feature > :first-child {
+    @include media-up(sm) {
+      grid-column: span 2;
+    }
+
+    @include media-up(lg) {
+      grid-row: span 2;
+    }
+  }
+}

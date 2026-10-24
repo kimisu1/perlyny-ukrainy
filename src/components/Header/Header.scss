@@ -1,0 +1,72 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.site-header {
+  padding-block: 0.85rem;
+  background: rgba($white, 0.96);
+  border-bottom: 1px solid $line;
+  backdrop-filter: blur(6px);
+
+  &__brand {
+    padding: 0;
+    margin-right: 2rem;
+  }
+
+  &__toggle {
+    border: 1px solid $line;
+    padding: 0.45rem 0.6rem;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__nav {
+    gap: 0.25rem;
+  }
+
+  &__link {
+    position: relative;
+    font-family: $font-display;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: $ink;
+
+    // Активний пункт меню підкреслено червоною «ниткою»
+    &.active::after {
+      content: '';
+      position: absolute;
+      left: var(--bs-navbar-nav-link-padding-x);
+      right: var(--bs-navbar-nav-link-padding-x);
+      bottom: 0.1rem;
+      height: 2px;
+      background: $cherry;
+    }
+  }
+
+  // Мобільне меню: пункти списком з роздільниками
+  @include media-down(lg) {
+    &__nav {
+      padding-block: 0.75rem 0.25rem;
+      gap: 0;
+    }
+
+    &__link.nav-link {
+      padding: 0.8rem 0.9rem;
+      border-top: 1px solid $line;
+
+      &.active::after {
+        left: 0;
+        right: auto;
+        top: 0.8rem;
+        bottom: 0.8rem;
+        width: 3px;
+        height: auto;
+      }
+    }
+  }
+}

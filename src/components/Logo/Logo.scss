@@ -1,0 +1,37 @@
+@use '../../styles/tokens' as *;
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: $ink;
+
+  &__mark {
+    flex: none;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  &__pearl {
+    stroke: $ink;
+    stroke-width: 1.5;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    font-family: $font-display;
+    font-size: 1.02rem;
+    font-weight: 650;
+    line-height: 1.02;
+    letter-spacing: 0.01em;
+  }
+
+  &--inverted {
+    color: $white;
+
+    .logo__pearl {
+      stroke: $white;
+    }
+  }
+}

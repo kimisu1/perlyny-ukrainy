@@ -1,0 +1,60 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.hero-placeholder {
+  height: clamp(440px, 72vh, 720px);
+  background: $ink;
+}
+
+.home-intro {
+  &__grid {
+    display: grid;
+    gap: 1.5rem;
+
+    @include media-up(lg) {
+      grid-template-columns: 5fr 6fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  &__title {
+    @include display(clamp(#{$step-3}, 4vw, #{$step-4}));
+    margin: 0;
+  }
+
+  &__lead {
+    max-width: 56ch;
+    margin-bottom: 1.75rem;
+    font-size: $step-1;
+    line-height: 1.55;
+
+    @include media-down(md) {
+      font-size: $step-0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+
+.home-news {
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    margin-bottom: 1rem;
+  }
+
+  &__all {
+    font-family: $font-display;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $cherry;
+  }
+}

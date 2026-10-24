@@ -1,0 +1,23 @@
+@use '../../styles/tokens' as *;
+
+.contact-form {
+  .form-label {
+    margin-bottom: 0.4rem;
+    font-family: $font-display;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .form-text {
+    color: $ink-soft;
+  }
+
+  &__counter {
+    display: block;
+    text-align: right;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}

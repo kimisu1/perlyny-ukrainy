@@ -1,0 +1,16 @@
+@use '../../styles/mixins' as *;
+
+.news-search {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+
+  @include media-up(lg) {
+    max-width: 30rem;
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 0;
+  }
+}

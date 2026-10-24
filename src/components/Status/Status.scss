@@ -1,0 +1,18 @@
+@use '../../styles/tokens' as *;
+
+.status-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 2rem;
+  color: $ink-soft;
+}
+
+.status-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block: 1.5rem;
+}

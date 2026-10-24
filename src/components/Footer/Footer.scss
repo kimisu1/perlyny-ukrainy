@@ -1,0 +1,71 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.site-footer {
+  margin-top: $space-section;
+  background: $ink;
+  color: rgba($white, 0.86);
+  font-size: 1rem;
+
+  a {
+    color: $white;
+    text-decoration-color: rgba($white, 0.4);
+
+    &:hover {
+      text-decoration-color: $white;
+    }
+  }
+
+  // Сітка: одна колонка на мобільних, три — від планшета
+  &__grid {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: 3.5rem 2.5rem;
+
+    @include media-up(md) {
+      grid-template-columns: 2fr 1fr 1.3fr;
+      gap: 3rem;
+    }
+  }
+
+  &__about p {
+    max-width: 36ch;
+    margin: 1.25rem 0 0;
+  }
+
+  &__heading {
+    margin-bottom: 1rem;
+    color: $white;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  &__nav ul {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  address {
+    margin: 0;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    padding-block: 1.5rem 2rem;
+    border-top: 1px solid rgba($white, 0.18);
+    font-size: 0.88rem;
+    color: rgba($white, 0.7);
+
+    p {
+      margin: 0;
+    }
+  }
+}

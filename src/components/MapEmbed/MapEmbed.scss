@@ -1,0 +1,16 @@
+@use '../../styles/tokens' as *;
+
+.map-embed {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid $line;
+  border-radius: $radius;
+  background: $mist;
+
+  iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}

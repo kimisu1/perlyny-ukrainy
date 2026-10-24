@@ -1,0 +1,43 @@
+@use 'sass:map';
+@use 'tokens' as *;
+
+// Медіазапити «від» і «до» брейкпоінта
+@mixin media-up($name) {
+  @media (min-width: map.get($breakpoints, $name)) {
+    @content;
+  }
+}
+
+@mixin media-down($name) {
+  @media (max-width: map.get($breakpoints, $name) - 0.02px) {
+    @content;
+  }
+}
+
+// Орнаментальна смуга-вишивка (фірмовий елемент)
+@mixin ornament-band($height: 18px, $light: false) {
+  height: $height;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: center;
+  @if $light {
+    background-image: url('../assets/ornament-light.svg');
+  } @else {
+    background-image: url('../assets/ornament.svg');
+  }
+}
+
+// Помітний фокус для клавіатурної навігації
+@mixin focus-ring($color: $river) {
+  outline: 3px solid $color;
+  outline-offset: 3px;
+}
+
+// Заголовки Unbounded
+@mixin display($size) {
+  font-family: $font-display;
+  font-size: $size;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}

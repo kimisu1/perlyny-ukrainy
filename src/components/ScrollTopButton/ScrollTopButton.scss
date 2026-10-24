@@ -1,0 +1,33 @@
+@use 'sass:color';
+@use '../../styles/tokens' as *;
+
+.scroll-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1030;
+  display: none; // показує jQuery (fadeIn)
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 2px solid $white;
+  border-radius: 50%;
+  background: $cherry;
+  color: $white;
+  box-shadow: 0 0.5rem 1.5rem rgba($ink, 0.3);
+  cursor: pointer;
+
+  svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &:hover {
+    background: color.scale($cherry, $lightness: -15%);
+  }
+}

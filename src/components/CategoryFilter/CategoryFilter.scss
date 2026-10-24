@@ -1,0 +1,46 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid $line;
+    border-radius: $radius;
+    background: $white;
+    color: $ink;
+    font-family: $font-display;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+
+    @each $id, $color in $category-colors {
+      &--#{$id} .stitch {
+        color: $color;
+      }
+    }
+
+    &:hover {
+      border-color: $ink;
+    }
+
+    &.is-active {
+      border-color: $ink;
+      background: $ink;
+      color: $white;
+
+      .stitch {
+        color: $white;
+      }
+    }
+  }
+}

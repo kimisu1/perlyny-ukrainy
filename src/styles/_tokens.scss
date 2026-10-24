@@ -1,0 +1,45 @@
+// Дизайн-токени порталу «Перлини України»
+
+// Кольори
+$ink: #1d2b53; // нічний індиго — текст, шапка, футер
+$cherry: #b01e2f; // вишиванковий червоний — орнамент, акценти
+$spruce: #2e6b4f; // смерека — «Природа»
+$river: #2f5da8; // дніпровська синь — «Міста», посилання
+$ochre: #8a6100; // пшениця — «Святині»
+$mist: #eef1f4; // карпатський туман — фон секцій
+$white: #fff;
+$ink-soft: #5c667f; // другорядний текст (контраст 5.7:1 на білому)
+$line: #d5dae3; // тонкі лінії та рамки полів
+
+$category-colors: (
+  castles: $cherry,
+  nature: $spruce,
+  cities: $river,
+  sacred: $ochre,
+);
+
+// Шрифти
+$font-display: 'Unbounded Variable', 'Segoe UI', system-ui, sans-serif;
+$font-text: 'Literata Variable', Georgia, 'Times New Roman', serif;
+
+// Типографічна шкала 1.25 (основа — 18 px)
+$step--1: 0.9rem;
+$step-0: 1.125rem;
+$step-1: 1.406rem;
+$step-2: 1.758rem;
+$step-3: 2.197rem;
+$step-4: 2.747rem;
+
+// Відступи та форми
+$space-section: clamp(3rem, 6vw, 5.5rem);
+$radius: 0.25rem;
+$measure: 68ch;
+
+// Брейкпоінти збігаються з Bootstrap
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);

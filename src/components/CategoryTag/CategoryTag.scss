@@ -1,0 +1,28 @@
+@use '../../styles/tokens' as *;
+
+.stitch {
+  flex: none;
+  width: 0.7em;
+  height: 0.7em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: square;
+}
+
+.category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-family: $font-display;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.2;
+
+  // Кольори категорій задані в токенах ($category-colors)
+  @each $id, $color in $category-colors {
+    &--#{$id} {
+      color: $color;
+    }
+  }
+}

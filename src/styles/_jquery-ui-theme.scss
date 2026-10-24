@@ -1,0 +1,165 @@
+// Віджети jQuery UI (Accordion, Autocomplete, Datepicker) у кольорах порталу.
+// Базова тема jquery-ui.css підключається в main.jsx, тут — лише перевизначення.
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.ui-widget,
+.ui-widget input,
+.ui-widget button {
+  font-family: $font-text;
+  font-size: 1rem;
+}
+
+.ui-widget.ui-widget-content {
+  border-color: $line;
+}
+
+// Accordion — питання й відповіді на сторінці «Про сайт»
+.ui-accordion {
+  .ui-accordion-header {
+    position: relative;
+    margin: 0;
+    padding: 1.1rem 3rem 1.1rem 0;
+    border: 0;
+    border-top: 1px solid $line;
+    border-radius: 0;
+    background: transparent;
+    color: $ink;
+    font-family: $font-display;
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.4;
+    cursor: pointer;
+
+    // Шеврон, що повертається під час розкриття
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      width: 0.6rem;
+      height: 0.6rem;
+      border-right: 2px solid $cherry;
+      border-bottom: 2px solid $cherry;
+      transform: translateY(-70%) rotate(45deg);
+      transition: transform 0.2s ease;
+    }
+
+    &.ui-state-hover {
+      color: $cherry;
+    }
+
+    &.ui-state-active::after {
+      transform: translateY(-30%) rotate(225deg);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  .ui-accordion-content {
+    padding: 0 0 1.25rem;
+    border: 0;
+    background: transparent;
+    color: $ink;
+    font-size: $step-0;
+    line-height: 1.65;
+
+    p {
+      max-width: $measure;
+      margin: 0;
+    }
+  }
+}
+
+// Autocomplete — підказки в пошуку новин
+.ui-autocomplete.ui-menu {
+  z-index: 1060;
+  max-width: min(36rem, 92vw);
+  padding: 0.35rem 0;
+  border: 1px solid $line;
+  border-radius: $radius;
+  background: $white;
+  box-shadow: 0 0.75rem 2rem rgba($ink, 0.18);
+
+  .ui-menu-item-wrapper {
+    padding: 0.55rem 1rem;
+    border: 0;
+    margin: 0;
+    color: $ink;
+    line-height: 1.4;
+
+    &.ui-state-active {
+      border: 0;
+      margin: 0;
+      background: $mist;
+      color: $cherry;
+    }
+  }
+}
+
+// Datepicker — вибір дати поїздки у формі «Контакти»
+.ui-datepicker.ui-widget {
+  z-index: 1060 !important;
+  width: 19rem;
+  padding: 0.75rem;
+  border: 1px solid $line;
+  border-radius: $radius;
+  box-shadow: 0 0.75rem 2rem rgba($ink, 0.18);
+
+  .ui-datepicker-header {
+    border: 0;
+    border-radius: $radius;
+    background: $ink;
+    color: $white;
+    font-family: $font-display;
+    font-weight: 500;
+  }
+
+  .ui-datepicker-title {
+    font-size: 0.95rem;
+  }
+
+  .ui-datepicker-prev,
+  .ui-datepicker-next {
+    top: 0.25rem;
+    cursor: pointer;
+
+    &.ui-state-hover {
+      border: 0;
+      background: rgba($white, 0.2);
+    }
+  }
+
+  th {
+    color: $ink-soft;
+    font-family: $font-display;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  td a.ui-state-default,
+  td span.ui-state-default {
+    border: 1px solid transparent;
+    border-radius: $radius;
+    background: $mist;
+    color: $ink;
+    text-align: center;
+  }
+
+  td a.ui-state-highlight {
+    border-color: $ochre;
+    background: $white;
+  }
+
+  td a.ui-state-hover {
+    background: rgba($river, 0.15);
+  }
+
+  td a.ui-state-active {
+    border-color: $cherry;
+    background: $cherry;
+    color: $white;
+  }
+}

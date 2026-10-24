@@ -1,0 +1,89 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.about-intro {
+  display: grid;
+  gap: 2.5rem;
+
+  @include media-up(lg) {
+    grid-template-columns: 7fr 5fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  &__figure {
+    margin: 0;
+
+    img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: $radius;
+    }
+
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.92rem;
+      color: $ink-soft;
+    }
+  }
+}
+
+// Критерії відбору — сітка 1 → 2 колонки
+.criteria {
+  display: grid;
+  gap: 2rem 3rem;
+  margin: 0;
+
+  @include media-up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__item {
+    padding-top: 1.25rem;
+    border-top: 2px solid $ink;
+  }
+
+  dt {
+    margin-bottom: 0.5rem;
+    font-family: $font-display;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  dd {
+    max-width: 48ch;
+    margin: 0;
+    color: $ink-soft;
+  }
+}
+
+.about-faq {
+  max-width: 860px;
+}
+
+.credits {
+  display: grid;
+  gap: 0.9rem 3rem;
+  padding: 0;
+  margin: 2rem 0 0;
+  list-style: none;
+  font-size: 0.95rem;
+
+  @include media-up(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid $line;
+    color: $ink-soft;
+  }
+
+  &__title {
+    color: $ink;
+    font-weight: 600;
+  }
+}

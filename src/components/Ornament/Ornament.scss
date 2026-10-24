@@ -1,0 +1,13 @@
+@use '../../styles/mixins' as *;
+
+.ornament {
+  @include ornament-band(18px);
+
+  &--light {
+    @include ornament-band(18px, $light: true);
+  }
+
+  @include media-down(md) {
+    height: 14px;
+  }
+}

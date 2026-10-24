@@ -1,0 +1,16 @@
+@use '../../styles/tokens' as *;
+
+.gallery-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  &__count {
+    margin: 0;
+    font-size: 0.95rem;
+    color: $ink-soft;
+  }
+}

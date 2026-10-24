@@ -1,0 +1,85 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 240px;
+  grid-auto-flow: dense;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  @include media-up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 200px;
+  }
+
+  @include media-up(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 210px;
+  }
+
+  &__item--wide {
+    @include media-up(sm) {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+  }
+
+  &__button {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: $radius;
+    background: $mist;
+    cursor: zoom-in;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.04);
+    }
+  }
+
+  // Підпис на градієнті — видимий завжди (зручно на сенсорних екранах)
+  &__caption {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 2.5rem 1rem 0.85rem;
+    background: linear-gradient(0deg, rgba($ink, 0.88), rgba($ink, 0));
+    color: $white;
+    text-align: left;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  &__region {
+    font-size: 0.85rem;
+    opacity: 0.85;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__button img {
+      transition: none;
+    }
+  }
+}

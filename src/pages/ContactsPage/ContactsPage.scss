@@ -1,0 +1,39 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.contacts {
+  display: grid;
+  gap: 3.5rem;
+
+  @include media-up(lg) {
+    grid-template-columns: 5fr 7fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  &__list {
+    display: grid;
+    gap: 1.1rem;
+    margin-bottom: 2rem;
+
+    dt {
+      font-family: $font-display;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: $ink-soft;
+    }
+
+    dd {
+      margin: 0.15rem 0 0;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__form {
+    @include media-up(lg) {
+      padding: 2.5rem;
+      background: $mist;
+      border-radius: $radius;
+    }
+  }
+}

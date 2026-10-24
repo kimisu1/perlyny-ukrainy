@@ -1,0 +1,49 @@
+// Кастомізація Bootstrap через змінні SCSS до підключення фреймворку
+@use 'tokens' as t;
+
+$primary: t.$cherry;
+$secondary: t.$ink;
+$info: t.$river;
+$success: t.$spruce;
+$light: t.$mist;
+$dark: t.$ink;
+
+$body-color: t.$ink;
+$body-bg: t.$white;
+$link-color: t.$river;
+$link-hover-color: t.$ink;
+$border-color: t.$line;
+
+$font-family-base: t.$font-text;
+$font-size-base: t.$step-0;
+$line-height-base: 1.65;
+$headings-font-family: t.$font-display;
+$headings-font-weight: 600;
+$headings-line-height: 1.2;
+
+$border-radius: t.$radius;
+$border-radius-sm: t.$radius;
+$border-radius-lg: t.$radius;
+$box-shadow: none;
+
+$btn-font-family: t.$font-display;
+$btn-font-weight: 500;
+$btn-font-size: 0.95rem;
+$btn-padding-y: 0.7rem;
+$btn-padding-x: 1.4rem;
+
+$input-font-family: t.$font-text;
+$input-padding-y: 0.65rem;
+$input-border-color: t.$line;
+$input-focus-border-color: t.$river;
+$focus-ring-color: rgba(t.$river, 0.35);
+
+$navbar-nav-link-padding-x: 0.9rem;
+$navbar-light-color: t.$ink;
+$navbar-light-hover-color: t.$cherry;
+$navbar-light-active-color: t.$cherry;
+
+$carousel-transition-duration: 0.8s;
+$modal-backdrop-opacity: 0.85;
+
+@import 'bootstrap/scss/bootstrap';
