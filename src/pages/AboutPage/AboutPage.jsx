@@ -66,9 +66,11 @@ export default function AboutPage() {
       </section>
 
       <section className="section">
-        <Container className="about-faq">
-          <h2 className="section__title">Питання та відповіді</h2>
-          <FaqAccordion items={FAQ} />
+        <Container>
+          <div className="about-faq">
+            <h2 className="section__title">Питання та відповіді</h2>
+            <FaqAccordion items={FAQ} />
+          </div>
         </Container>
       </section>
 

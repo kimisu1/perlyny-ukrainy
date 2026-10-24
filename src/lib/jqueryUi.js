@@ -19,5 +19,7 @@ import 'jquery-ui/themes/base/menu.css';
 import 'jquery-ui/themes/base/autocomplete.css';
 import 'jquery-ui/themes/base/datepicker.css';
 import 'jquery-ui/themes/base/theme.css';
+// Власна тема підключається після базової, щоб перевизначити її стилі.
+import '../styles/jquery-ui-theme.scss';
 
 export default $;

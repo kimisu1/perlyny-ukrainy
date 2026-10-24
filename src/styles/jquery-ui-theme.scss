@@ -1,5 +1,5 @@
 // Віджети jQuery UI (Accordion, Autocomplete, Datepicker) у кольорах порталу.
-// Базова тема jquery-ui.css підключається в main.jsx, тут — лише перевизначення.
+// Базова тема jQuery UI підключається в src/lib/jqueryUi.js, цей файл — одразу після неї.
 @use 'tokens' as *;
 @use 'mixins' as *;
 
@@ -16,6 +16,8 @@
 
 // Accordion — питання й відповіді на сторінці «Про сайт»
 .ui-accordion {
+  border-bottom: 1px solid $line;
+
   .ui-accordion-header {
     position: relative;
     margin: 0;
@@ -121,15 +123,54 @@
     font-size: 0.95rem;
   }
 
+  // Стрілки перемикання місяців: замість іконок-спрайтів — CSS-шеврони
   .ui-datepicker-prev,
   .ui-datepicker-next {
     top: 0.25rem;
+    border: 0;
+    border-radius: $radius;
     cursor: pointer;
 
+    span {
+      display: none;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-left: 2px solid $white;
+      border-bottom: 2px solid $white;
+    }
+
     &.ui-state-hover {
+      top: 0.25rem;
       border: 0;
       background: rgba($white, 0.2);
     }
+
+    &.ui-state-disabled::after {
+      opacity: 0.35;
+    }
+  }
+
+  .ui-datepicker-prev::after {
+    transform: translate(-30%, -50%) rotate(45deg);
+  }
+
+  .ui-datepicker-next::after {
+    transform: translate(-70%, -50%) rotate(-135deg);
+  }
+
+  .ui-datepicker-prev.ui-state-hover {
+    left: 2px;
+  }
+
+  .ui-datepicker-next.ui-state-hover {
+    right: 2px;
   }
 
   th {

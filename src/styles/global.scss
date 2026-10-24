@@ -1,6 +1,5 @@
 @use 'tokens' as *;
 @use 'mixins' as *;
-@use 'jquery-ui-theme';
 
 html {
   scroll-behavior: smooth;
@@ -8,6 +7,11 @@ html {
   @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
   }
+}
+
+// Якорі не ховаються під липкою шапкою
+[id] {
+  scroll-margin-top: 6rem;
 }
 
 body {
