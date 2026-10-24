@@ -1,0 +1,12 @@
+# Render Blueprint: один вебсервіс Node.js віддає і REST API, і зібраний React-клієнт.
+services:
+  - type: web
+    name: perlyny-ukrainy
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
