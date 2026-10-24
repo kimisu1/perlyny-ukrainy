@@ -78,7 +78,7 @@ server/            бекенд (Node.js + Express)
   index.js         — запуск
   app.js           — createApp({ dataDir, messagesFile, distDir })
   lib/jsonStore.js — читання/дописування JSON
-  routes/*.js      — news, gallery, slides, categories, messages
+  routes/*.js      — news, gallery, messages (slides і categories — прямо в app.js)
   data/*.json      — categories, slides, gallery, news
 shared/validation.js — валідація форми (спільна для клієнта і сервера)
 tests/             — node:test (API та валідація)
@@ -110,7 +110,7 @@ tests/             — node:test (API та валідація)
 // categories.json
 { "id": "castles" | "nature" | "cities" | "sacred", "name": "Замки та фортеці" | "Природа" | "Міста" | "Святині" }
 // slides.json
-{ "id": 1, "title": "Кам'янець-Подільська фортеця", "subtitle": "Хмельницька область", "text": "1–2 речення", "image": "/images/places/large/kamianets.jpg", "newsId": 3 }
+{ "id": 1, "title": "Кам'янець-Подільська фортеця", "subtitle": "Хмельницька область", "text": "1–2 речення", "image": "/images/places/large/kamianets.jpg", "newsId": 1 }
 // gallery.json
 { "id": 1, "title": "…", "region": "… область", "category": "castles", "image": "/images/places/large/<slug>.jpg", "thumb": "/images/places/thumbs/<slug>.jpg", "width": 1600, "height": 1067, "author": "…", "license": "CC BY-SA 4.0", "licenseUrl": "https://…", "sourceUrl": "https://commons.wikimedia.org/wiki/File:…" }
 // news.json
@@ -179,7 +179,7 @@ tests/             — node:test (API та валідація)
 
 - 16 місць × 4 категорії; фото з Wikimedia Commons лише під CC0 / Public Domain / CC BY / CC BY-SA, з автором, ліцензією і посиланням на джерело (відображаються в лайтбоксі та на сторінці «Про сайт»).
 - Розміри: `large` — ширина 1600 px, `thumbs` — 800 px, JPEG.
-- 14 новин-публікацій (дати 2026-09-01…2026-10-20), 5 слайдів, FAQ з 5–6 питань.
+- 16 новин-публікацій (по одній на місце, дати 2026-09-01…2026-10-20), 5 слайдів, FAQ з 5 питань.
 - Контакти: «м. Київ, Майдан Незалежності» (публічна площа, не чужа установа), карта Google за координатами 50.4501, 30.5234.
 
 ## 9. Тестування
