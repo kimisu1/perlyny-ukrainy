@@ -189,7 +189,9 @@ tests/             — node:test (API та валідація)
 
 ## 10. Деплой
 
-Один вебсервіс Render (безкоштовний план): `npm ci --include=dev && npm run build`, старт `npm start`, перевірка здоров'я `/api/health`. Обмеження: «засинання» сервісу після простою, файлова система тимчасова (повідомлення з форми зберігаються до перезапуску). Код — у GitHub-репозиторії користувача.
+- Код — у публічному репозиторії GitHub `kimisu1/perlyny-ukrainy` (створено через `gh`).
+- Демоверсія — GitHub Pages (`https://kimisu1.github.io/perlyny-ukrainy/`), публікується робочим процесом `.github/workflows/pages.yml`. GitHub Pages віддає лише статичні файли, тому збирання в режимі `pages` (`npm run build:pages`): `base` = `/perlyny-ukrainy/`, `basename` маршрутизатора = `BASE_URL`, ресурси API експортуються в `dist/api/*.json`, вибірку новин і фото виконує спільний модуль `shared/newsQuery.js` (той самий, що й на сервері), `404.html` = `index.html` для прямих посилань; форма в демоверсії перевіряє дані, але не надсилає їх.
+- Повна версія з REST API — один вебсервіс Render (безкоштовний план, `render.yaml`): `npm ci --include=dev && npm run build`, старт `npm start`, перевірка здоров'я `/api/health`. Обмеження: «засинання» після простою, тимчасова файлова система.
 
 ## 11. Поза обсягом
 

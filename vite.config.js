@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  // Демоверсія на GitHub Pages відкривається з підкаталогу /<назва репозиторію>/
+  base: mode === 'pages' ? (process.env.PAGES_BASE ?? '/perlyny-ukrainy/') : '/',
   plugins: [react()],
   server: {
     port: 5173,
@@ -19,4 +21,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

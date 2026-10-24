@@ -6,6 +6,7 @@ import { ErrorMessage, Loading } from '../../components/Status/Status.jsx';
 import { useApi } from '../../hooks/useApi.js';
 import { useCategories } from '../../hooks/useCategories.js';
 import { usePageTitle } from '../../hooks/usePageTitle.js';
+import { assetUrl } from '../../utils/assets.js';
 import { formatDate } from '../../utils/dates.js';
 import './NewsArticlePage.scss';
 
@@ -67,7 +68,7 @@ export default function NewsArticlePage() {
       </header>
       <Container>
         <figure className="article__figure">
-          <img src={news.image} alt="" width="1600" height="1067" />
+          <img src={assetUrl(news.image)} alt="" width="1600" height="1067" />
         </figure>
         <div className="article__body prose">
           {news.content.map((paragraph) => (

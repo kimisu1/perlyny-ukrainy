@@ -11,7 +11,7 @@ const NewsArticlePage = lazy(() => import('./pages/NewsArticlePage/NewsArticlePa
 const ContactsPage = lazy(() => import('./pages/ContactsPage/ContactsPage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage.jsx'));
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: '/',
     element: <Layout />,
@@ -25,7 +25,10 @@ const router = createBrowserRouter([
       { path: '*', element: <NotFoundPage /> },
     ],
   },
-]);
+];
+
+// На GitHub Pages сайт відкривається з підкаталогу (/perlyny-ukrainy/), тому маршрути відраховуються від BASE_URL.
+const router = createBrowserRouter(routes, { basename: import.meta.env.BASE_URL });
 
 export default function App() {
   return <RouterProvider router={router} />;

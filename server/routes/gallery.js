@@ -1,15 +1,13 @@
 import { Router } from 'express';
+import { filterGallery } from '../../shared/newsQuery.js';
 
 export function galleryRouter({ gallery, categories }) {
   const router = Router();
-  const categoryIds = new Set(categories.map((category) => category.id));
 
   router.get('/', (req, res) => {
-    const category = req.query.category || undefined;
-    if (category !== undefined && !categoryIds.has(category)) {
-      return res.status(400).json({ error: 'Невідома категорія' });
-    }
-    res.json(category ? gallery.filter((item) => item.category === category) : gallery);
+    const { error, data } = filterGallery(gallery, categories, req.query.category);
+    if (error) return res.status(400).json({ error });
+    res.json(data);
   });
 
   return router;

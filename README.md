@@ -2,6 +2,9 @@
 
 Інформаційний портал про найвідоміші туристичні місця України: фортеці й замки, гори та озера, старовинні міста і святині. Контрольна робота з дисципліни «Веб-програмування», тема «Розробка інформаційного порталу «Найвідоміші туристичні місця України» на основі web-технологій», ступінь складності 2.
 
+- Демоверсія (GitHub Pages): https://kimisu1.github.io/perlyny-ukrainy/
+- Вихідний код: https://github.com/kimisu1/perlyny-ukrainy
+
 ![Головна сторінка](docs/screenshots/home-desktop.jpg)
 
 ## Можливості
@@ -32,15 +35,16 @@ npm run dev        # API на http://localhost:3001, сайт на http://localh
 npm test           # автотести API та валідації
 npm run build      # збірка клієнта в dist/
 npm start          # продакшен: сайт і API на http://localhost:3001 (порт — змінна PORT)
+npm run build:pages  # статична демоверсія для GitHub Pages у dist/ (дані API — dist/api/*.json)
 ```
 
 ## Структура
 
 ```
 server/            REST API (Express): app.js, routes/, lib/jsonStore.js, data/*.json
-shared/            валідація форми, спільна для клієнта і сервера
+shared/            спільне для клієнта і сервера: валідація форми, вибірка новин і фото
 src/               клієнт (React)
-  api/client.js    звернення до REST API
+  api/             звернення до REST API (client.js) і статичне джерело для GitHub Pages (staticApi.js)
   components/      компоненти інтерфейсу (компонент + власний .scss)
   pages/           сторінки
   hooks/           useApi, useCategories, usePageTitle, useReducedMotion
@@ -48,6 +52,8 @@ src/               клієнт (React)
   styles/          токени, міксини, кастомізація Bootstrap, тема jQuery UI
 public/images/     фото місць (large — 1600 px, thumbs — 800 px)
 tests/             автотести
+scripts/           експорт даних API у статичні JSON-файли для GitHub Pages
+.github/workflows/ публікація на GitHub Pages
 docs/superpowers/  специфікація і план імплементації
 ```
 
@@ -65,15 +71,19 @@ docs/superpowers/  специфікація і план імплементаці
 
 ## Публікація
 
-1. Створіть репозиторій на GitHub і завантажте код:
-   ```bash
-   git remote add origin https://github.com/<акаунт>/perlyny-ukrainy.git
-   git push -u origin main
-   ```
-2. На [render.com](https://render.com) оберіть **New → Blueprint**, підключіть репозиторій — налаштування візьмуться з `render.yaml` (безкоштовний план, збірка `npm ci --include=dev && npm run build`, запуск `npm start`, перевірка `/api/health`).
-3. Після збірки портал буде доступний за адресою виду `https://perlyny-ukrainy.onrender.com`.
+### GitHub Pages (демоверсія)
 
-На безкоштовному плані сервіс «засинає» після простою (перше відкриття — до хвилини), а звернення з форми зберігаються лише до перезапуску.
+Після кожного push у гілку `main` робочий процес `.github/workflows/pages.yml` запускає тести, збирає клієнт командою `npm run build:pages` і публікує його на GitHub Pages.
+
+GitHub Pages віддає лише статичні файли, тому в демоверсії:
+
+- ресурси REST API експортуються у статичні JSON-файли `dist/api/*.json`, а пагінацію, фільтр і пошук виконує той самий модуль `shared/newsQuery.js`, що й сервер;
+- `404.html` повторює `index.html`, тож прямі посилання на сторінки (наприклад, `/news/3`) відкриваються коректно;
+- форма звернення перевіряє дані, але не надсилає їх — для цього потрібен сервер.
+
+### Повна версія з REST API (Render)
+
+На [render.com](https://render.com) оберіть **New → Blueprint** і підключіть репозиторій — налаштування візьмуться з `render.yaml` (безкоштовний план, збірка `npm ci --include=dev && npm run build`, запуск `npm start`, перевірка `/api/health`). На безкоштовному плані сервіс «засинає» після простою, а звернення з форми зберігаються лише до перезапуску.
 
 ## Фото
 

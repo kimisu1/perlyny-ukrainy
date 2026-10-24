@@ -61,6 +61,16 @@ export default function ContactForm() {
       return;
     }
 
+    // Демоверсія на GitHub Pages не має сервера: дані перевірено, але не надіслано
+    if (!api.canSendMessages) {
+      setStatus({
+        state: 'demo',
+        message:
+          'Форму заповнено правильно. Демоверсія на GitHub Pages працює без сервера, тому звернення не надсилається; у повній версії порталу його приймає REST API (POST /api/messages).',
+      });
+      return;
+    }
+
     setStatus({ state: 'sending', message: '' });
     try {
       await api.sendMessage(data);
@@ -92,6 +102,13 @@ export default function ContactForm() {
   return (
     <Form noValidate onSubmit={handleSubmit} className="contact-form">
       <Row className="g-3">
+        {!api.canSendMessages && (
+          <Col xs={12}>
+            <Alert variant="secondary" className="mb-0">
+              Це демоверсія без сервера: форма перевіряє дані, але звернення не надсилає.
+            </Alert>
+          </Col>
+        )}
         <Col md={6}>
           <Form.Group controlId="contact-name">
             <Form.Label>Ім’я</Form.Label>
@@ -148,6 +165,7 @@ export default function ContactForm() {
         <Col xs={12} aria-live="polite">
           {status.state === 'success' && <Alert variant="success">{status.message}</Alert>}
           {status.state === 'error' && <Alert variant="danger">{status.message}</Alert>}
+          {status.state === 'demo' && <Alert variant="info">{status.message}</Alert>}
         </Col>
 
         <Col xs={12}>

@@ -14,3 +14,7 @@ server/data/messages.json
 .DS_Store
 *.log
 .env
+
+# Налаштування IDE
+.idea/
+.vscode/

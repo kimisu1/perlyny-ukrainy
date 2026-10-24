@@ -5,6 +5,7 @@ import PageHeader from '../../components/PageHeader/PageHeader.jsx';
 import { ErrorMessage, Loading } from '../../components/Status/Status.jsx';
 import { useApi } from '../../hooks/useApi.js';
 import { usePageTitle } from '../../hooks/usePageTitle.js';
+import { assetUrl } from '../../utils/assets.js';
 import { CRITERIA, FAQ } from './aboutContent.js';
 import './AboutPage.scss';
 
@@ -40,7 +41,7 @@ export default function AboutPage() {
           </div>
           <figure className="about-intro__figure">
             <img
-              src="/images/places/thumbs/lviv-rynok.jpg"
+              src={assetUrl('/images/places/thumbs/lviv-rynok.jpg')}
               alt="Площа Ринок у Львові з ратушею та кам’яницями"
               width="800"
               height="533"

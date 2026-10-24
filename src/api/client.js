@@ -1,14 +1,8 @@
 // Єдина точка звернення клієнта до REST API порталу.
-const BASE_URL = import.meta.env.VITE_API_URL ?? '/api';
+import { ApiError } from './ApiError.js';
+import { staticApi } from './staticApi.js';
 
-export class ApiError extends Error {
-  constructor(message, status, fields = {}) {
-    super(message);
-    this.name = 'ApiError';
-    this.status = status;
-    this.fields = fields;
-  }
-}
+const BASE_URL = import.meta.env.VITE_API_URL ?? '/api';
 
 async function request(path, { method = 'GET', body, signal } = {}) {
   let response;
@@ -41,7 +35,8 @@ function toQuery(params) {
   return query ? `?${query}` : '';
 }
 
-export const api = {
+const serverApi = {
+  canSendMessages: true,
   getCategories: (options) => request('/categories', options),
   getSlides: (options) => request('/slides', options),
   getNews: ({ page, limit, category, q } = {}, options) =>
@@ -50,3 +45,6 @@ export const api = {
   getGallery: ({ category } = {}, options) => request(`/gallery${toQuery({ category })}`, options),
   sendMessage: (message) => request('/messages', { method: 'POST', body: message }),
 };
+
+// Демоверсія для GitHub Pages збирається з VITE_STATIC_API=true (файл .env.pages) і працює без сервера.
+export const api = import.meta.env.VITE_STATIC_API === 'true' ? staticApi : serverApi;

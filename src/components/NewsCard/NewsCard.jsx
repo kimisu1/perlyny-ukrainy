@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { assetUrl } from '../../utils/assets.js';
 import { formatDate } from '../../utils/dates.js';
 import CategoryTag from '../CategoryTag/CategoryTag.jsx';
 import './NewsCard.scss';
@@ -8,7 +9,13 @@ export default function NewsCard({ news, categoryName, feature = false }) {
   return (
     <article className={feature ? 'news-card news-card--feature' : 'news-card'}>
       <div className="news-card__media">
-        <img src={feature ? news.image : news.thumb} alt="" loading="lazy" width="800" height="533" />
+        <img
+          src={assetUrl(feature ? news.image : news.thumb)}
+          alt=""
+          loading="lazy"
+          width="800"
+          height="533"
+        />
       </div>
       <div className="news-card__body">
         <div className="news-card__meta">

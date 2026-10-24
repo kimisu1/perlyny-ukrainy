@@ -1,6 +1,7 @@
 import { Carousel, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useReducedMotion } from '../../hooks/useReducedMotion.js';
+import { assetUrl } from '../../utils/assets.js';
 import './HeroSlider.scss';
 
 // Слайдер на основі Bootstrap Carousel. Слайди надходять з REST API (/api/slides).
@@ -21,7 +22,7 @@ export default function HeroSlider({ slides }) {
           <Carousel.Item key={slide.id} className="hero__item">
             <img
               className="hero__image"
-              src={slide.image}
+              src={assetUrl(slide.image)}
               alt=""
               loading={index === 0 ? 'eager' : 'lazy'}
               fetchPriority={index === 0 ? 'high' : 'auto'}

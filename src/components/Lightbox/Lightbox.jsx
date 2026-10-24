@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { assetUrl } from '../../utils/assets.js';
 import './Lightbox.scss';
 
 // Перегляд фото у великому розмірі (Bootstrap Modal) з навігацією кнопками та стрілками клавіатури.
@@ -34,7 +35,7 @@ export default function Lightbox({ photos, index, onClose, onNavigate }) {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body className="lightbox__body">
-            <img src={photo.image} alt={photo.alt} className="lightbox__image" />
+            <img src={assetUrl(photo.image)} alt={photo.alt} className="lightbox__image" />
           </Modal.Body>
           <Modal.Footer className="lightbox__footer">
             <p className="lightbox__credit">
