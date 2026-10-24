@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
 // Завантажує дані з API: { data, error, loading, retry }.
-// Попередній запит скасовується, якщо змінилися залежності або компонент зник зі сторінки.
+// Попередній запит скасовується, якщо змінилися залежності або компонент зник зі сторінки;
+// відповідь скасованого запиту ігнорується.
 export function useApi(load, deps) {
   const [state, setState] = useState({ data: null, error: null, loading: true });
   const [attempt, setAttempt] = useState(0);
@@ -11,9 +12,11 @@ export function useApi(load, deps) {
     setState((previous) => ({ ...previous, error: null, loading: true }));
 
     load({ signal: controller.signal })
-      .then((data) => setState({ data, error: null, loading: false }))
+      .then((data) => {
+        if (!controller.signal.aborted) setState({ data, error: null, loading: false });
+      })
       .catch((error) => {
-        if (error.name !== 'AbortError') setState({ data: null, error, loading: false });
+        if (!controller.signal.aborted) setState({ data: null, error, loading: false });
       });
 
     return () => controller.abort();

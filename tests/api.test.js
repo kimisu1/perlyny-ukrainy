@@ -183,12 +183,43 @@ describe('POST /api/messages', () => {
     assert.equal(status, 400);
     assert.ok(body.error);
   });
+
+  test('після досягнення ліміту сховища — 503', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'perlyny-cap-'));
+    const dataDir = path.join(dir, 'data');
+    await mkdir(dataDir);
+    const files = { categories: CATEGORIES, news: NEWS, gallery: GALLERY, slides: SLIDES };
+    for (const [name, value] of Object.entries(files)) {
+      await writeFile(path.join(dataDir, `${name}.json`), JSON.stringify(value));
+    }
+    const app = await createApp({ dataDir, messagesFile: path.join(dir, 'messages.json'), maxMessages: 1 });
+    const capped = app.listen(0);
+    await new Promise((resolve) => capped.once('listening', resolve));
+    const url = `http://127.0.0.1:${capped.address().port}/api/messages`;
+    const send = () =>
+      fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(message) });
+    try {
+      assert.equal((await send()).status, 201);
+      const full = await send();
+      assert.equal(full.status, 503);
+      assert.ok((await full.json()).error);
+    } finally {
+      await new Promise((resolve) => capped.close(resolve));
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
 });
 
 test('невідомий ресурс API — 404 у форматі JSON', async () => {
   const { status, body } = await get('/api/unknown');
   assert.equal(status, 404);
   assert.equal(body.error, 'Ресурс не знайдено');
+});
+
+test('некоректна адреса запиту — 400 у форматі JSON, а не 500', async () => {
+  const { status, body } = await get('/api/news/%E0%A4%A');
+  assert.equal(status, 400);
+  assert.ok(body.error);
 });
 
 test('маршрути клієнта віддають index.html зібраного застосунку', async () => {

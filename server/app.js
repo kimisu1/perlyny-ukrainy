@@ -6,7 +6,8 @@ import { galleryRouter } from './routes/gallery.js';
 import { messagesRouter } from './routes/messages.js';
 import { newsRouter } from './routes/news.js';
 
-export async function createApp({ dataDir, messagesFile, distDir }) {
+// maxMessages обмежує кількість збережених звернень, щоб файл не ріс без меж.
+export async function createApp({ dataDir, messagesFile, distDir, maxMessages = 1000 }) {
   const [categories, news, gallery, slides] = await Promise.all(
     ['categories', 'news', 'gallery', 'slides'].map((name) => readJson(path.join(dataDir, `${name}.json`))),
   );
@@ -21,7 +22,7 @@ export async function createApp({ dataDir, messagesFile, distDir }) {
   api.get('/slides', (req, res) => res.json(slides));
   api.use('/news', newsRouter({ news, categories }));
   api.use('/gallery', galleryRouter({ gallery, categories }));
-  api.use('/messages', messagesRouter({ messagesFile }));
+  api.use('/messages', messagesRouter({ messagesFile, maxMessages }));
   api.use((req, res) => res.status(404).json({ error: 'Ресурс не знайдено' }));
   app.use('/api', api);
 
@@ -46,6 +47,11 @@ function handleError(error, req, res, next) {
   }
   if (error.type === 'entity.too.large') {
     return res.status(413).json({ error: 'Занадто великий запит' });
+  }
+  // Помилки клієнта (некоректна адреса, непідтримуване кодування тощо) — без запису в журнал як збою
+  const status = error.status ?? error.statusCode;
+  if (status >= 400 && status < 500) {
+    return res.status(status).json({ error: 'Некоректний запит' });
   }
   console.error(error);
   res.status(500).json({ error: 'Внутрішня помилка сервера' });

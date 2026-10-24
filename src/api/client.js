@@ -18,7 +18,10 @@ async function request(path, { method = 'GET', body, signal } = {}) {
     throw new ApiError('Немає з’єднання із сервером. Перевірте інтернет і спробуйте ще раз.', 0);
   }
 
-  const payload = await response.json().catch(() => null);
+  const payload = await response.json().catch((error) => {
+    if (error.name === 'AbortError') throw error;
+    return null;
+  });
   if (!response.ok) {
     throw new ApiError(payload?.error ?? `Сервер відповів помилкою ${response.status}`, response.status, payload?.fields);
   }

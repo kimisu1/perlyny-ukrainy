@@ -18,12 +18,21 @@ export async function writeJson(file, value) {
   await rename(tmp, file);
 }
 
+export class StoreFullError extends Error {
+  constructor() {
+    super('Сховище заповнене');
+    this.name = 'StoreFullError';
+  }
+}
+
 // Дописування виконується послідовно, щоб одночасні запити не перезаписали один одного.
+// maxItems обмежує розмір файлу: після ліміту запис відхиляється з StoreFullError.
 let queue = Promise.resolve();
 
-export function appendJson(file, item) {
+export function appendJson(file, item, { maxItems = Infinity } = {}) {
   const run = queue.then(async () => {
     const list = await readJson(file, []);
+    if (list.length >= maxItems) throw new StoreFullError();
     list.push(item);
     await writeJson(file, list);
     return item;

@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './components/Layout/Layout.jsx';
+import RouteError from './components/RouteError/RouteError.jsx';
 import HomePage from './pages/HomePage/HomePage.jsx';
 
 // Головна завантажується одразу, решта сторінок — окремими частинами (code splitting).
@@ -16,13 +17,19 @@ const routes = [
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: 'about', element: <AboutPage /> },
-      { path: 'gallery', element: <GalleryPage /> },
-      { path: 'news', element: <NewsPage /> },
-      { path: 'news/:id', element: <NewsArticlePage /> },
-      { path: 'contacts', element: <ContactsPage /> },
-      { path: '*', element: <NotFoundPage /> },
+      {
+        // Безіменний маршрут із errorElement: помилка сторінки показується всередині Layout
+        errorElement: <RouteError />,
+        children: [
+          { index: true, element: <HomePage /> },
+          { path: 'about', element: <AboutPage /> },
+          { path: 'gallery', element: <GalleryPage /> },
+          { path: 'news', element: <NewsPage /> },
+          { path: 'news/:id', element: <NewsArticlePage /> },
+          { path: 'contacts', element: <ContactsPage /> },
+          { path: '*', element: <NotFoundPage /> },
+        ],
+      },
     ],
   },
 ];

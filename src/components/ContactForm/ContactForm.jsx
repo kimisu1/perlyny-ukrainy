@@ -32,6 +32,17 @@ export default function ContactForm() {
   // Календар jQuery UI Datepicker з українською локалізацією; минулі дати недоступні.
   useEffect(() => {
     const $date = $(dateRef.current);
+    // Enter без вибору дня клавішами Ctrl + стрілки має надсилати форму, а не вставляти сьогоднішню дату:
+    // обробник підключено раніше за віджет, тож він ховає календар до того, як віджет обробить Enter.
+    let navigated = false;
+    $date.on('keydown.tripDate', (event) => {
+      if (event.key === 'Enter') {
+        if (!navigated) $date.datepicker('hide');
+        navigated = false;
+      } else if ((event.ctrlKey || event.metaKey) && event.key.startsWith('Arrow')) {
+        navigated = true;
+      }
+    });
     $date.datepicker({
       ...$.datepicker.regional.uk,
       minDate: 0,
@@ -42,7 +53,10 @@ export default function ContactForm() {
         setTouched((previous) => ({ ...previous, tripDate: true }));
       },
     });
-    return () => $date.datepicker('destroy');
+    return () => {
+      $date.off('.tripDate');
+      $date.datepicker('destroy');
+    };
   }, []);
 
   const handleChange = (event) => setField(event.target.name, event.target.value);
@@ -88,13 +102,21 @@ export default function ContactForm() {
     }
   };
 
-  const field = (name) => ({
-    name,
-    value: values[name],
-    onChange: handleChange,
-    onBlur: handleBlur,
-    isInvalid: Boolean(errorFor(name)),
-  });
+  // Властивості поля: помилка позначається aria-invalid і пов’язується з полем через aria-describedby
+  const errorId = (name) => `contact-${name}-error`;
+  const field = (name, hintIds = []) => {
+    const error = errorFor(name);
+    const describedBy = [error && errorId(name), ...hintIds].filter(Boolean).join(' ');
+    return {
+      name,
+      value: values[name],
+      onChange: handleChange,
+      onBlur: handleBlur,
+      isInvalid: Boolean(error),
+      'aria-invalid': error ? true : undefined,
+      'aria-describedby': describedBy || undefined,
+    };
+  };
 
   const sending = status.state === 'sending';
   const messageLength = values.message.trim().length;
@@ -113,14 +135,18 @@ export default function ContactForm() {
           <Form.Group controlId="contact-name">
             <Form.Label>Ім’я</Form.Label>
             <Form.Control {...field('name')} autoComplete="name" required />
-            <Form.Control.Feedback type="invalid">{errorFor('name')}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid" id={errorId('name')}>
+              {errorFor('name')}
+            </Form.Control.Feedback>
           </Form.Group>
         </Col>
         <Col md={6}>
           <Form.Group controlId="contact-email">
             <Form.Label>Електронна пошта</Form.Label>
             <Form.Control {...field('email')} type="email" autoComplete="email" required />
-            <Form.Control.Feedback type="invalid">{errorFor('email')}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid" id={errorId('email')}>
+              {errorFor('email')}
+            </Form.Control.Feedback>
           </Form.Group>
         </Col>
         <Col md={6}>
@@ -134,28 +160,33 @@ export default function ContactForm() {
                 </option>
               ))}
             </Form.Select>
-            <Form.Control.Feedback type="invalid">{errorFor('topic')}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid" id={errorId('topic')}>
+              {errorFor('topic')}
+            </Form.Control.Feedback>
           </Form.Group>
         </Col>
         <Col md={6}>
           <Form.Group controlId="contact-trip-date">
             <Form.Label>Орієнтовна дата поїздки</Form.Label>
             <Form.Control
-              {...field('tripDate')}
+              {...field('tripDate', ['contact-trip-date-hint'])}
               ref={dateRef}
               placeholder="ДД.ММ.РРРР"
               inputMode="numeric"
-              aria-describedby="contact-trip-date-hint"
             />
-            <Form.Control.Feedback type="invalid">{errorFor('tripDate')}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid" id={errorId('tripDate')}>
+              {errorFor('tripDate')}
+            </Form.Control.Feedback>
             <Form.Text id="contact-trip-date-hint">Необов’язково. Оберіть день у календарі.</Form.Text>
           </Form.Group>
         </Col>
         <Col xs={12}>
           <Form.Group controlId="contact-message">
             <Form.Label>Повідомлення</Form.Label>
-            <Form.Control {...field('message')} as="textarea" rows={6} required aria-describedby="contact-message-count" />
-            <Form.Control.Feedback type="invalid">{errorFor('message')}</Form.Control.Feedback>
+            <Form.Control {...field('message', ['contact-message-count'])} as="textarea" rows={6} required />
+            <Form.Control.Feedback type="invalid" id={errorId('message')}>
+              {errorFor('message')}
+            </Form.Control.Feedback>
             <Form.Text id="contact-message-count" className="contact-form__counter">
               {messageLength} / {LIMITS.message.max} символів
             </Form.Text>

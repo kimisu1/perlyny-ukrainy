@@ -10,6 +10,7 @@ export const TOPICS = [
 
 export const LIMITS = {
   name: { min: 2, max: 80 },
+  email: { max: 254 },
   message: { min: 10, max: 2000 },
 };
 
@@ -47,6 +48,8 @@ export function validateMessage(input = {}, { today = todayIso() } = {}) {
   else if (data.name.length > LIMITS.name.max) errors.name = 'Ім’я задовге (до 80 символів)';
 
   if (!data.email) errors.email = 'Вкажіть електронну пошту';
+  // Довжину перевіряємо до регулярного виразу: дуже довгий рядок не повинен навантажувати сервер
+  else if (data.email.length > LIMITS.email.max) errors.email = 'Адреса пошти задовга (до 254 символів)';
   else if (!EMAIL_RE.test(data.email)) errors.email = 'Перевірте адресу пошти, наприклад name@example.com';
 
   if (!TOPICS.some((topic) => topic.id === data.topic)) errors.topic = 'Оберіть тему звернення';

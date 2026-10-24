@@ -47,7 +47,10 @@ export default function NewsSearch({ value, onSearch }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    $(inputRef.current).autocomplete('close');
+    // Скасовуємо відкладений пошук підказок (затримка 250 мс), інакше меню відкриється вже після пошуку
+    const widget = $(inputRef.current).autocomplete('instance');
+    clearTimeout(widget.searching);
+    widget.close();
     onSearch(text.trim());
   };
 

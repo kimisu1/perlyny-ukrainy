@@ -1,17 +1,10 @@
 @use 'tokens' as *;
 @use 'mixins' as *;
 
+// Якорі та елементи у фокусі не ховаються під липкою шапкою.
+// Плавну прокрутку CSS не вмикаємо: кнопка «Нагору» анімує прокрутку засобами jQuery.
 html {
-  scroll-behavior: smooth;
-
-  @media (prefers-reduced-motion: reduce) {
-    scroll-behavior: auto;
-  }
-}
-
-// Якорі не ховаються під липкою шапкою
-[id] {
-  scroll-margin-top: 6rem;
+  scroll-padding-top: 6rem;
 }
 
 body {
@@ -40,6 +33,27 @@ a {
 
 :focus-visible {
   @include focus-ring;
+}
+
+// Bootstrap прибирає outline у фокусі кнопок, пунктів меню й елементів слайдера — повертаємо помітну рамку
+.nav-link:focus-visible,
+.btn:focus-visible,
+.btn-close:focus-visible,
+.page-link:focus-visible,
+.carousel-control-prev:focus-visible,
+.carousel-control-next:focus-visible,
+.carousel-indicators [data-bs-target]:focus-visible {
+  @include focus-ring;
+  box-shadow: none;
+}
+
+// На темному тлі рамка фокусу біла
+.site-footer,
+.lightbox__content,
+.hero {
+  :focus-visible {
+    outline-color: $white;
+  }
 }
 
 img {

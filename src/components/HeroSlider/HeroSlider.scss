@@ -13,10 +13,39 @@
       inset: 0;
       background: linear-gradient(
         0deg,
-        rgba($ink, 0.9) 0%,
-        rgba($ink, 0.55) 32%,
-        rgba($ink, 0) 62%
+        rgba($ink, 0.92) 0%,
+        rgba($ink, 0.7) 40%,
+        rgba($ink, 0.45) 65%,
+        rgba($ink, 0.15) 100%
       );
+    }
+  }
+
+  // Кнопка «Пауза» автоматичної зміни слайдів
+  &__toggle {
+    position: absolute;
+    z-index: 4;
+    right: 1.25rem;
+    bottom: 1rem;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 2px solid $white;
+    border-radius: 50%;
+    background: rgba($ink, 0.55);
+    color: $white;
+    cursor: pointer;
+
+    svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      fill: currentColor;
+    }
+
+    &:hover {
+      background: rgba($ink, 0.85);
     }
   }
 
@@ -35,6 +64,7 @@
     bottom: clamp(3rem, 7vh, 4.5rem);
     padding: 0;
     text-align: left;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
     pointer-events: none;
   }
 

@@ -45,5 +45,6 @@ $navbar-light-active-color: t.$cherry;
 
 $carousel-transition-duration: 0.8s;
 $modal-backdrop-opacity: 0.85;
+$enable-smooth-scroll: false; // прокрутку «Нагору» анімує jQuery
 
 @import 'bootstrap/scss/bootstrap';

@@ -44,6 +44,12 @@ test('відхиляє некоректну пошту і невідому те�
   assert.ok(check({ topic: 'spam' }).errors.topic);
 });
 
+test('пошта довша за 254 символи відхиляється ще до перевірки формату', () => {
+  const domain = '@example.com';
+  assert.equal(check({ email: `${'a'.repeat(254 - domain.length)}${domain}` }).valid, true);
+  assert.ok(check({ email: `${'a'.repeat(255 - domain.length)}${domain}` }).errors.email);
+});
+
 test('межі довжини імені: 2 і 80 символів', () => {
   assert.ok(check({ name: 'О' }).errors.name);
   assert.equal(check({ name: 'Ол' }).valid, true);

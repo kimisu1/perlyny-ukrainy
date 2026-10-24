@@ -13,7 +13,12 @@ export default function NewsPagination({ page, pages, onChange }) {
           <span className="visually-hidden">Попередня сторінка</span>
         </Pagination.Prev>
         {numbers.map((number) => (
-          <Pagination.Item key={number} active={number === page} onClick={() => onChange(number)}>
+          <Pagination.Item
+            key={number}
+            active={number === page}
+            activeLabel="(поточна сторінка)"
+            onClick={() => onChange(number)}
+          >
             {number}
           </Pagination.Item>
         ))}
