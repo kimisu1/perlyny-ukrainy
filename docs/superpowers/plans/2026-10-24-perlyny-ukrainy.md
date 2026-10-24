@@ -321,6 +321,9 @@ export default $;
 - [ ] `render.yaml`: web-сервіс `runtime: node`, `plan: free`, `buildCommand: npm ci --include=dev && npm run build`, `startCommand: npm start`, `healthCheckPath: /api/health`, `NODE_VERSION=22`.
 - [ ] `README.md`: опис, функції, технології, запуск (`npm install`, `npm run dev`), тести, API, деплой на Render з GitHub, джерела фото.
 - [ ] Перевірка продакшен-збірки локально: `npm run build && PORT=4000 npm start`, відкрити `http://localhost:4000/news/1` напряму. Коміт.
+- [ ] Демоверсія на GitHub Pages (додано на прохання користувача): режим збирання `pages` (`npm run build:pages`) — `base` `/perlyny-ukrainy/`, `basename` маршрутизатора `BASE_URL`, шляхи до фото через `assetUrl`, експорт `server/data/*.json` у `dist/api/` (`scripts/export-static-api.mjs`), `dist/404.html` для прямих посилань; вибірка новин і фото — спільний модуль `shared/newsQuery.js`; клієнт `staticApi` без сервера; форма в демоверсії лише перевіряє дані.
+- [ ] Робочий процес `.github/workflows/pages.yml`: `npm ci` → `npm test` → `npm run build:pages` → `upload-pages-artifact` → `deploy-pages`.
+- [ ] Репозиторій: `gh repo create kimisu1/perlyny-ukrainy --public`, увімкнути Pages з джерелом GitHub Actions (`gh api -X POST repos/kimisu1/perlyny-ukrainy/pages -f build_type=workflow`), `git push`; перевірити `https://kimisu1.github.io/perlyny-ukrainy/` і пряме посилання `/news/3`.
 
 ### Задача 15: Пояснювальна записка
 
