@@ -84,7 +84,7 @@ GitHub Pages віддає лише статичні файли, тому в де
 
 ### Повна версія з REST API (Render)
 
-Портал працює як безкоштовний вебсервіс Render (регіон Frankfurt): https://perlyny-ukrainy.onrender.com. Сервіс створено через Render API з тими самими параметрами, що й у `render.yaml` (збірка `npm ci --include=dev && npm run build`, запуск `npm start`, перевірка `/api/health`, `NODE_VERSION=22`); після кожного push у `main` Render розгортає нову версію автоматично. Відтворити сервіс можна і через **New → Blueprint** на [render.com](https://render.com) з цього репозиторію.
+Портал працює як безкоштовний вебсервіс Render (регіон Frankfurt): https://perlyny-ukrainy.onrender.com. Сервіс створено через Render API з тими самими параметрами, що й у `render.yaml` (збірка `npm ci --include=dev && npm run build`, запуск `npm start`, перевірка `/api/health`, `NODE_VERSION=22`). Репозиторій підключено до Render за публічною адресою, тому автоматичного розгортання після push немає: нову версію розгортає кнопка **Manual Deploy** у панелі Render або запит `POST /v1/services/<id>/deploys` до Render API. Щоб увімкнути автодеплой, підключіть акаунт GitHub у Render або створіть сервіс через **New → Blueprint** з цього репозиторію.
 
 На безкоштовному плані сервіс «засинає» після 15 хвилин без запитів, а звернення з форми зберігаються лише до перезапуску (файлова система тимчасова).
 

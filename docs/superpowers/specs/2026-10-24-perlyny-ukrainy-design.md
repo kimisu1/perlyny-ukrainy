@@ -191,7 +191,7 @@ tests/             — node:test (API та валідація)
 
 - Код — у публічному репозиторії GitHub `kimisu1/perlyny-ukrainy` (створено через `gh`).
 - Демоверсія — GitHub Pages (`https://kimisu1.github.io/perlyny-ukrainy/`), публікується робочим процесом `.github/workflows/pages.yml`. GitHub Pages віддає лише статичні файли, тому збирання в режимі `pages` (`npm run build:pages`): `base` = `/perlyny-ukrainy/`, `basename` маршрутизатора = `BASE_URL`, ресурси API експортуються в `dist/api/*.json`, вибірку новин і фото виконує спільний модуль `shared/newsQuery.js` (той самий, що й на сервері), `404.html` = `index.html` для прямих посилань; форма в демоверсії перевіряє дані, але не надсилає їх.
-- Повна версія з REST API — вебсервіс Render `perlyny-ukrainy` (безкоштовний план, регіон Frankfurt): `https://perlyny-ukrainy.onrender.com`. Створено через Render API з параметрами `render.yaml`: `npm ci --include=dev && npm run build`, старт `npm start`, перевірка здоров'я `/api/health`, `NODE_VERSION=22`, автодеплой після push у `main`. Обмеження: «засинання» після 15 хв простою, тимчасова файлова система.
+- Повна версія з REST API — вебсервіс Render `perlyny-ukrainy` (безкоштовний план, регіон Frankfurt): `https://perlyny-ukrainy.onrender.com`. Створено через Render API з параметрами `render.yaml`: `npm ci --include=dev && npm run build`, старт `npm start`, перевірка здоров'я `/api/health`, `NODE_VERSION=22`. Репозиторій підключено за публічною URL-адресою, тому Render не робить автодеплой після push — новий деплой запускається вручну або через `POST /v1/services/{id}/deploys`. Обмеження: «засинання» після 15 хв простою, тимчасова файлова система.
 
 ## 11. Поза обсягом
 
